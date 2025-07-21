@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './index.css'
 
 function Square({value, onSquareClick}){
-  return <button className='square' onClick={onSquareClick}>{value}</button>
+  return <button className='w-20 h-20 text-3xl font-bold border border-gray-400 bg-white hover:bg-gray-100 transition-all duration-150' onClick={onSquareClick}>{value}</button>
 }
 
 function Board({ xIsNext, squares, onPlay }) {
@@ -20,15 +20,15 @@ function Board({ xIsNext, squares, onPlay }) {
     let status = ''
 
     if(winner){
-      status = 'Winner : ' + winner
+      status = '🎉 Winner : ' + winner
     }else{
       status = 'Next Player : ' + (xIsNext ? 'X' : 'O')
     }
   
   return (
     <>
-    <div className='status'>{status}</div>
-    <div className='board'>
+    <div className="mb-4 text-xl font-semibold text-center">{status}</div>
+      <div className="grid grid-cols-3 gap-2">
       <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
       <Square value={squares[1]} onSquareClick={() => handleClick(1)}/>
       <Square value={squares[2]} onSquareClick={() => handleClick(2)}/>
@@ -70,18 +70,20 @@ export default function Game(){
 
       return (
         <li key={move}>
-          <button onClick={() => jumpTo(move)}>{description}</button>
+          <button className='text-blue-600 hover:underline text-sm' onClick={() => jumpTo(move)}>{description}</button>
         </li>
       )
     })
 
   return(
-    <div className='game'>
-      <div className='game-board'>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-200 to-purple-300">
+      <div className="bg-white rounded-xl shadow-lg p-6 w-[300px] md:w-[360px] text-center space-y-4">
+        <h1 className="text-3xl font-bold text-gray-800">Tic Tac Toe</h1>
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-      </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
+        <div className="mt-4">
+          <h2 className="text-lg font-semibold mb-2">History</h2>
+          <ol className="space-y-1">{moves}</ol>
+        </div>
       </div>
     </div>
   )
